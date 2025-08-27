@@ -37,16 +37,14 @@ class Category(BaseModel):
 
 
 class Priority(BaseModel):
-    student_id = models.CharField(max_length=15)
-    lastname = models.CharField(max_length=25)
-    firstname = models.CharField(max_length=25)
-    middlename = models.CharField(max_length=25, blank=True, null=True)
-    program = models.ForeignKey(Subtask, on_delete=models.CASCADE)
+    name = models.CharField(max_length=250)
+    college = models.ForeignKey(Task, null=True, blank=True, on_delete=models.CASCADE)
+    description = models.CharField(max_length=500)
 
     status = models.CharField(max_length=50,choices=[("Pneding","Pending"),("In Progress","In Progress"),("Completed","Completed")],default="Pending")
 
     def __str__(self):
-        return f"{self.lastname}, {self.firstname}"
+        return self.name
 
 
 class Note(BaseModel):
