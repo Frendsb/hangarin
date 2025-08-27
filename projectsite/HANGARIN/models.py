@@ -9,41 +9,51 @@ class BaseModel(models.Model):
 
 
 class Task(BaseModel):
-    Task_name = models.CharField(max_length=150)
-
+    college_name = models.CharField(max_length=150)
+    
     status = models.CharField(max_length=50,choices=[("Pneding","Pending"),("In Progress","In Progress"),("Completed","Completed")],default="Pending")
 
     def __str__(self):
-        return self.Task_name
+        return self.college_name
+
 
 class Subtask(BaseModel):
-    Subtask_name = models.CharField(max_length=150)
+    prog_name = models.CharField(max_length=150)
+    college = models.ForeignKey(Task, on_delete=models.CASCADE)
 
     status = models.CharField(max_length=50,choices=[("Pneding","Pending"),("In Progress","In Progress"),("Completed","Completed")],default="Pending")
 
     def __str__(self):
-        return self.Subtask_name
+        return self.prog_name
 
-class Priority(BaseModel):
-    priority = models.CharField(max_length=150)
-
-    status = models.CharField(max_length=50,choices=[("Pneding","Pending"),("In Progress","In Progress"),("Completed","Completed")],default="Pending")
-
-    def __str__(self):
-        return self.priority
 
 class Category(BaseModel):
-    category = models.CharField(max_length=150)
+    name = models.CharField(max_length=250)
+    college = models.ForeignKey(Task, null=True, blank=True, on_delete=models.CASCADE)
+    description = models.CharField(max_length=500)
 
     status = models.CharField(max_length=50,choices=[("Pneding","Pending"),("In Progress","In Progress"),("Completed","Completed")],default="Pending")
 
     def __str__(self):
-        return self.category
+        return self.name
+
+
+class Priority(BaseModel):
+    student_id = models.CharField(max_length=15)
+    lastname = models.CharField(max_length=25)
+    firstname = models.CharField(max_length=25)
+    middlename = models.CharField(max_length=25, blank=True, null=True)
+    program = models.ForeignKey(Subtask, on_delete=models.CASCADE)
+
+    status = models.CharField(max_length=50,choices=[("Pneding","Pending"),("In Progress","In Progress"),("Completed","Completed")],default="Pending")
+
+    def __str__(self):
+        return f"{self.lastname}, {self.firstname}"
+
 
 class Note(BaseModel):
-    note_name = models.CharField(max_length=150)
+    student = models.ForeignKey(Priority, on_delete=models.CASCADE)
+    organization = models.ForeignKey(Category, on_delete=models.CASCADE)
+    date_joined = models.DateField()
 
     status = models.CharField(max_length=50,choices=[("Pneding","Pending"),("In Progress","In Progress"),("Completed","Completed")],default="Pending")
-
-    def __str__(self):
-        return self.note_name
