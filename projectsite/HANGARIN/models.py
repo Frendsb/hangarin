@@ -11,7 +11,7 @@ class BaseModel(models.Model):
 class Task(BaseModel):
     college_name = models.CharField(max_length=150)
     
-    status = models.CharField(max_length=50,choices=[("Pneding","Pending"),("In Progress","In Progress"),("Completed","Completed"),],default="Pending")
+    #status = models.CharField(max_length=50,choices=[("Pneding","Pending"),("In Progress","In Progress"),("Completed","Completed"),],default="Pending")
 
     def __str__(self):
         return self.college_name
@@ -21,7 +21,7 @@ class Subtask(BaseModel):
     prog_name = models.CharField(max_length=150)
     college = models.ForeignKey(Task, on_delete=models.CASCADE)
 
-    status = models.CharField(max_length=50,choices=[("Pending","Pending"),("In Progress","In Progress"),("Completed","Completed"),],default="Pending")
+    #status = models.CharField(max_length=50,choices=[("Pending","Pending"),("In Progress","In Progress"),("Completed","Completed"),],default="Pending")
 
     def __str__(self):
         return self.prog_name
@@ -32,7 +32,7 @@ class Category(BaseModel):
     college = models.ForeignKey(Task, null=True, blank=True, on_delete=models.CASCADE)
     description = models.CharField(max_length=500)
 
-    status = models.CharField(max_length=50,choices=[("Pending","Pending"),("In Progress","In Progress"),("Completed","Completed"),],default="Pending")
+    #status = models.CharField(max_length=50,choices=[("Pending","Pending"),("In Progress","In Progress"),("Completed","Completed"),],default="Pending")
 
     def __str__(self):
         return self.name
@@ -45,7 +45,7 @@ class Priority(BaseModel):
     middlename = models.CharField(max_length=25, blank=True, null=True)
     program = models.ForeignKey(Subtask, on_delete=models.CASCADE)
 
-    status = models.CharField(max_length=50,choices=[("Pending","Pending"),("In Progress","In Progress"),("Completed","Completed"),],default="Pending")
+    #status = models.CharField(max_length=50,choices=[("Pending","Pending"),("In Progress","In Progress"),("Completed","Completed"),],default="Pending")
 
     def __str__(self):
         return f"{self.lastname}, {self.firstname}"
@@ -56,4 +56,4 @@ class Note(BaseModel):
     organization = models.ForeignKey(Category, on_delete=models.CASCADE)
     date_joined = models.DateField()
 
-    status = models.CharField(max_length=50,choices=[("Pending","Pending"),("In Progress","In Progress"),("Completed","Completed"),],default="Pending")
+    #status = models.CharField(max_length=50,choices=[("Pending","Pending"),("In Progress","In Progress"),("Completed","Completed"),],default="Pending")
