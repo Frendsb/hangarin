@@ -2,7 +2,8 @@ from django.db import models
 
 # Create your models here.
 class BaseModel(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
+    from django.utils import timezone
+    created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
