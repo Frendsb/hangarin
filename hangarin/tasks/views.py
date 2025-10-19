@@ -8,8 +8,9 @@ from django.db.models import Q
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import models
+from django.views.generic import TemplateView
 
-class HomePageView(LoginRequiredMixin, ListView):
+class HomePageView(LoginRequiredMixin,TemplateView):
     model = Task
     template_name = "home.html"
     login_url = '/accounts/login/'
