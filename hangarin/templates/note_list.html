@@ -4,75 +4,71 @@
 <div class="container mt-4">
     <h2>Notes</h2>
 
+    <!-- Search, Sort, Add Note -->
     <div class="row mb-3">
-        <div class="col-md-4">
-            <form action="{% url 'note-list' %}" method="get" class="form-inline">
-                <div class="input-group">
-                    <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Search ..." class="form-control" />
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="la la-search search-icon"></i>
-                            Search
-                        </button>
-                    </div>
-                </div>
+        <div class="col-md-4 mb-3">
+            <form action="{% url 'note-list' %}" method="get" class="d-flex">
+                <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Search ..." class="form-control me-2" />
+                <button type="submit" class="btn btn-primary">
+                    <i class="la la-search"></i> Search
+                </button>
             </form>
         </div>
-        <div class="col-md-4">
-            <div class="col-md-12">
-                <form method="get" class="row g-2 align-items-center">
-                    {% if request.GET.q %}
-                        <input type="hidden" name="q" value="{{ request.GET.q }}">
-                    {% endif %}
-                    <div class="col-auto">
-                        <label for="smallSelect" class="col-form-label">Sort by</label>
-                    </div>
-                    <div class="col-auto">
-                        <select class="form-control form-control-sm" id="smallSelect" name="sort_by">
-                            <option value="created_at" {% if request.GET.sort_by == "created_at" or not request.GET.sort_by %}selected{% endif %}>Created</option>
-                            <option value="content" {% if request.GET.sort_by == "content" %}selected{% endif %}>Content</option>
-                            <option value="task__title" {% if request.GET.sort_by == "task__title" %}selected{% endif %}>Task Title</option>
-                        </select>
-                    </div>
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-primary btn-sm btn-rounded">Sort</button>
-                    </div>
-                </form>
-            </div>
+
+        <div class="col-md-4 mb-3">
+            <form method="get" class="d-flex align-items-center">
+                {% if request.GET.q %}
+                    <input type="hidden" name="q" value="{{ request.GET.q }}">
+                {% endif %}
+                <label for="smallSelect" class="me-2">Sort by:</label>
+                <select class="form-select form-select-sm me-2" id="smallSelect" name="sort_by">
+                    <option value="created_at" {% if request.GET.sort_by == "created_at" or not request.GET.sort_by %}selected{% endif %}>Created</option>
+                    <option value="content" {% if request.GET.sort_by == "content" %}selected{% endif %}>Content</option>
+                    <option value="task__title" {% if request.GET.sort_by == "task__title" %}selected{% endif %}>Task Title</option>
+                </select>
+                <button type="submit" class="btn btn-primary btn-sm">Sort</button>
+            </form>
         </div>
-        <div class="col-md-4">
-            <div class="pull-right">
-                <a href="{% url 'note-add' %}" class="btn btn-success btn-rounded">
-                    Add Note
-                </a>
-            </div>
+
+        <div class="col-md-4 text-end">
+            <a href="{% url 'note-add' %}" class="btn btn-success btn-rounded">
+                Add Note
+            </a>
         </div>
     </div>
     <!-- End Row -->
 
-    <div class="row">
-        {% for note in notes %}
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm h-100">
-                <div class="card-body">
-                    <h5 class="card-title">Task: {{ note.task.title }}</h5>
-                    <p class="card-text">{{ note.content }}</p>
-                    <ul class="list-group list-group-flush mb-2">
-                        <li class="list-group-item"><strong>Created:</strong> {{ note.created_at|date:"Y-m-d H:i" }}</li>
-                    </ul>
-                    <div class="d-flex justify-content-end gap-2">
-                        <a href="{% url 'note-edit' note.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
+    <!-- 🧾 Table Layout for Notes -->
+    <div class="table-responsive">
+        <table class="table table-hover align-middle shadow-sm bg-white rounded">
+            <thead class="table-light">
+                <tr>
+                    <th>Task</th>
+                    <th>Content</th>
+                    <th>Created</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for note in notes %}
+                <tr>
+                    <td>{{ note.task.title }}</td>
+                    <td>{{ note.content|truncatewords:10 }}</td>
+                    <td>{{ note.created_at|date:"M. j, Y, g:i a" }}</td>
+                    <td class="text-center">
+                        <a href="{% url 'note-edit' note.id %}" class="btn btn-sm btn-outline-primary me-2">Edit</a>
                         <a href="{% url 'note-delete' note.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% empty %}
-        <div class="col-12">
-            <div class="alert alert-info text-center">No notes found.</div>
-        </div>
-        {% endfor %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center text-muted">No notes found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+
     {% include "includes/pagination.html" with page_obj=page_obj paginator=paginator is_paginated=is_paginated object_list=notes %}
 </div>
 {% endblock %}

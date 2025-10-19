@@ -335,5 +335,18 @@ body[data-background-color="dark"] .demo-icon .icon-class {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
+.table-hover tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.badge {
+  font-size: 0.85rem;
+  padding: 0.45em 0.65em;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.6rem;
+  font-size: 0.8rem;
+}
 
 /*# sourceMappingURL=demo.css.map */

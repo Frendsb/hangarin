@@ -6,79 +6,96 @@
 
     <!-- Search, Sort, and Add Task Row -->
     <div class="row mb-3">
-        <div class="col-md-4">
-            <form action="{% url 'task-list' %}" method="get" class="form-inline">
-                <div class="input-group">
-                    <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Search ..." class="form-control" />
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="la la-search search-icon"></i>
-                            Search
-                        </button>
-                    </div>
-                </div>
+        <div class="col-md-4 mb-3">
+            <form action="{% url 'task-list' %}" method="get" class="d-flex">
+                <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Search ..." class="form-control me-2" />
+                <button type="submit" class="btn btn-primary">
+                    <i class="la la-search"></i> Search
+                </button>
             </form>
         </div>
-        <div class="col-md-4">
-            <div class="col-md-12">
-                <form method="get" class="row g-2 align-items-center">
-                    {% if request.GET.q %}
-                        <input type="hidden" name="q" value="{{ request.GET.q }}">
-                    {% endif %}
-                    <div class="col-auto">
-                        <label for="smallSelect" class="col-form-label">Sort by</label>
-                    </div>
-                    <div class="col-auto">
-                        <select class="form-control form-control-sm" id="smallSelect" name="sort_by">
-                            <option value="deadline" {% if request.GET.sort_by == "deadline" or not request.GET.sort_by %}selected{% endif %}>Deadline</option>
-                            <option value="title" {% if request.GET.sort_by == "title" %}selected{% endif %}>Title</option>
-                            <option value="status" {% if request.GET.sort_by == "status" %}selected{% endif %}>Status</option>
-                            <option value="category__name" {% if request.GET.sort_by == "category__name" %}selected{% endif %}>Category</option>
-                            <option value="priority__name" {% if request.GET.sort_by == "priority__name" %}selected{% endif %}>Priority</option>
-                        </select>
-                    </div>
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-primary btn-sm btn-rounded">Sort</button>
-                    </div>
-                </form>
-            </div>
+
+        <div class="col-md-4 mb-3">
+            <form method="get" class="d-flex align-items-center">
+                {% if request.GET.q %}
+                    <input type="hidden" name="q" value="{{ request.GET.q }}">
+                {% endif %}
+                <label for="smallSelect" class="me-2">Sort by:</label>
+                <select class="form-select form-select-sm me-2" id="smallSelect" name="sort_by">
+                    <option value="deadline" {% if request.GET.sort_by == "deadline" or not request.GET.sort_by %}selected{% endif %}>Deadline</option>
+                    <option value="title" {% if request.GET.sort_by == "title" %}selected{% endif %}>Title</option>
+                    <option value="status" {% if request.GET.sort_by == "status" %}selected{% endif %}>Status</option>
+                    <option value="category__name" {% if request.GET.sort_by == "category__name" %}selected{% endif %}>Category</option>
+                    <option value="priority__name" {% if request.GET.sort_by == "priority__name" %}selected{% endif %}>Priority</option>
+                </select>
+                <button type="submit" class="btn btn-primary btn-sm">Sort</button>
+            </form>
         </div>
-        <div class="col-md-4">
-            <div class="pull-right">
-                <a href="{% url 'task-add' %}" class="btn btn-success btn-rounded">
-                    Add Task
-                </a>
-            </div>
+
+        <div class="col-md-4 text-end">
+            <a href="{% url 'task-add' %}" class="btn btn-success btn-rounded">
+                Add Task
+            </a>
         </div>
     </div>
     <!-- End Row -->
 
-    <div class="row">
-        {% for task in tasks %}
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm h-100">
-                <div class="card-body">
-                    <h5 class="card-title">{{ task.title }}</h5>
-                    <p class="card-text">{{ task.description }}</p>
-                    <ul class="list-group list-group-flush mb-2">
-                        <li class="list-group-item"><strong>Deadline:</strong> {{ task.deadline|date:"Y-m-d H:i" }}</li>
-                        <li class="list-group-item"><strong>Status:</strong> {{ task.status }}</li>
-                        <li class="list-group-item"><strong>Category:</strong> {{ task.category.name }}</li>
-                        <li class="list-group-item"><strong>Priority:</strong> {{ task.priority.name }}</li>
-                    </ul>
-                    <div class="d-flex justify-content-end gap-2">
-                        <a href="{% url 'task-update' task.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
+    <!-- 🧾 Table Layout for Tasks -->
+    <div class="table-responsive">
+        <table class="table table-hover align-middle shadow-sm bg-white rounded">
+            <thead class="table-light">
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Priority</th>
+                    <th>Deadline</th>
+                    <th>Status</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                <tr>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.description|truncatewords:6 }}</td>
+                    <td>{{ task.category.name }}</td>
+                    <td>
+                        {% if task.priority.name == "High" %}
+                        <span class="badge bg-danger">High</span>
+                        {% elif task.priority.name == "Medium" %}
+                        <span class="badge bg-warning text-dark">Medium</span>
+                        {% else %}
+                        <span class="badge bg-success">Low</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ task.deadline|date:"M. j, Y, g:i a" }}</td>
+                    <td>
+                        {% if task.status == "Completed" %}
+                        <span class="badge bg-success">Completed</span>
+                        {% elif task.status == "Pending" %}
+                        <span class="badge bg-secondary">Pending</span>
+                        {% elif task.status == "In Progress" %}
+                        <span class="badge bg-info text-dark">In Progress</span>
+                        {% else %}
+                        <span class="badge bg-light text-dark">{{ task.status }}</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-center">
+                        <a href="{% url 'task-update' task.id %}" class="btn btn-sm btn-outline-primary me-2">Edit</a>
                         <a href="{% url 'task-delete' task.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% empty %}
-        <div class="col-12">
-            <div class="alert alert-info text-center">No tasks found.</div>
-        </div>
-        {% endfor %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center text-muted">No tasks found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+
+    <!-- Pagination -->
     {% include "includes/pagination.html" with page_obj=page_obj paginator=paginator is_paginated=is_paginated object_list=tasks %}
 </div>
 {% endblock %}
