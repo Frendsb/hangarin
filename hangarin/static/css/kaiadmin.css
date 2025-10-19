@@ -6910,4 +6910,22 @@ body {
   .wrapper.not-found .desc {
     font-size: 18px !important; } }
 
+.table-hover tbody tr:hover {
+  background-color: #f8fafc;
+  transition: background-color 0.2s ease;
+}
+
+.table thead th {
+  font-weight: 600;
+}
+
+.table td, .table th {
+  vertical-align: middle;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.6rem;
+  font-size: 0.8rem;
+}
+
 /*# sourceMappingURL=kaiadmin.css.map */
