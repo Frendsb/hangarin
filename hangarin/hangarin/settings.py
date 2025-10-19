@@ -72,7 +72,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'hangarinsite.urls'
+ROOT_URLCONF = 'hangarin.urls'
 
 TEMPLATES = [
     {
@@ -89,7 +89,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'hangarinsite.wsgi.application'
+WSGI_APPLICATION = 'hangarin.wsgi.application'
 
 
 # Database
