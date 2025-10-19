@@ -12,6 +12,7 @@ from django.db import models
 class HomePageView(LoginRequiredMixin, ListView):
     model = Task
     template_name = "home.html"
+    login_url = '/accounts/login/'
     context_object_name = "recent_tasks"
     paginate_by = 5
     ordering = ['-created_at']

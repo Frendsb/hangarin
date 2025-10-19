@@ -34,7 +34,7 @@ class Task(BaseModel):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=128)
     description = models.CharField(max_length=256)
-    deadline = models.DateTimeField()
+    deadline = models.DateTimeField(null=True, blank=True)
     status = models.CharField(max_length=50, choices=[
         ("Pending", "Pending"),
         ("In Progress", "In Progress"),
@@ -58,7 +58,7 @@ class Note(BaseModel):
 
 class SubTask(BaseModel):
     id = models.AutoField(primary_key=True)
-    parent_task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    parent_task = models.ForeignKey(Task, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=128)
     status = models.CharField(max_length=50, choices=[
         ("Pending", "Pending"),
