@@ -51,9 +51,9 @@ INSTALLED_APPS = [
 ]
 
 if "pythonanywhere" in socket.gethostname():
-    SITE_ID = 2  # production (you’ll add later)
+    SITE_ID = 1  # production (you’ll add later)
 else:
-    SITE_ID = 1  # local development
+    SITE_ID = 3  # local development
 
 AUTHENTICATION_BACKENDS = [
  'django.contrib.auth.backends.ModelBackend',
@@ -149,9 +149,9 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-LOGIN_URL = '/accounts/login/' # where @login_required will send users
-LOGIN_REDIRECT_URL = '/' # where to go after successful login
-LOGOUT_REDIRECT_URL = '/' # after logout, go back to login
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/' # where to redirect after logout
 ACCOUNT_LOGOUT_ON_GET = True # logout immediately on GET
 ACCOUNT_LOGIN_METHODS = {"username", "email"} # allow login with username OR email
