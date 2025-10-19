@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
-from todohan.models import Priority, Task, Note, SubTask, Category
+from tasks.models import Priority, Task, Note, SubTask, Category
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from todohan.forms import TaskForm, NoteForm, SubTaskForm
+from tasks.forms import TaskForm, NoteForm, SubTaskForm
 from django.urls import reverse_lazy
 from django.db.models import Q
 from django.utils import timezone
