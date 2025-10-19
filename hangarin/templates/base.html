@@ -1,5 +1,5 @@
 {% load static %}
-{% load pwa %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,16 +9,10 @@
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
       name="viewport"
     />
+    {% load pwa %}
     {% progressive_web_app_meta %}
     <!-- Load Django static -->
     {% load static %}
-    
-    <link
-      rel="icon"
-      href="{% static 'img/Von_icon.ico' %}"
-      type="image/x-icon"
-    />
-
     <!-- Fonts and icons -->
     <script src="{% static 'js/plugin/webfont/webfont.min.js' %}"></script>
     <script>
@@ -301,5 +295,61 @@
     <!-- Your custom JS -->
     {% block scripts %}
     {% endblock %}
+  {% load static %}
+      <script>
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', function() {
+            navigator.serviceWorker
+              .register("/serviceworker.js")  // Django-PWA serves this from root
+              .then(function(registration) {
+                console.log('Service Worker registered with scope:', registration.scope);
+              })
+              .catch(function(err) {
+                console.log('Service Worker registration failed:', err);
+              });
+          });
+        }
+      </script>
+      <script>
+  let deferredPrompt;
+  const showInstallButton = () => {
+    const btn = document.createElement('button');
+    btn.textContent = '📲 Install Hangarin';
+    btn.style.position = 'fixed';
+    btn.style.bottom = '20px';
+    btn.style.right = '20px';
+    btn.style.padding = '10px 20px';
+    btn.style.background = '#0A0A0A';
+    btn.style.color = '#fff';
+    btn.style.border = 'none';
+    btn.style.borderRadius = '8px';
+    btn.style.cursor = 'pointer';
+    btn.style.zIndex = '9999';
+    document.body.appendChild(btn);
+
+    btn.addEventListener('click', async () => {
+      console.log('Install button clicked');
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User choice: ${outcome}`);
+        deferredPrompt = null;
+      }
+      btn.remove(); // hide button after interaction
+    });
+  };
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    console.log('✅ beforeinstallprompt event fired');
+    showInstallButton();
+  });
+
+  window.addEventListener('appinstalled', () => {
+    console.log('🎉 Hangarin successfully installed');
+  });
+</script>
+
   </body>
 </html>

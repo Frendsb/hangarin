@@ -19,8 +19,15 @@ from django.urls import path, include
 from tasks.views import HomePageView, TaskListView, TaskCreateView, TaskUpdateView, TaskDeleteView
 from tasks.views import NoteListView, NoteCreateView, NoteUpdateView, NoteDeleteView, SubTaskListView, SubTaskCreateView, SubTaskUpdateView, SubTaskDeleteView, PriorityListView, PriorityCreateView, PriorityUpdateView, PriorityDeleteView, CategoryListView, CategoryCreateView, CategoryUpdateView, CategoryDeleteView
 from tasks import views
-
+from django.views.generic import TemplateView 
 urlpatterns = [
+    path(
+        "serviceworker.js",
+        TemplateView.as_view(
+            template_name="serviceworker.js",
+            content_type="application/javascript"
+        ),
+        name="serviceworker"),
     path("admin/", admin.site.urls),
     path('', include('pwa.urls')),
     path("accounts/", include("allauth.urls")), # allauth routes

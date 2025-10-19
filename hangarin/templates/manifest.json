@@ -1,0 +1,40 @@
+{
+  "name": "{{ PWA_APP_NAME }}",
+  "short_name": "{{ PWA_APP_NAME }}",
+  "description": "{{ PWA_APP_DESCRIPTION }}",
+  "start_url": "{{ PWA_APP_START_URL }}",
+  "display": "{{ PWA_APP_DISPLAY }}",
+  "background_color": "{{ PWA_APP_BACKGROUND_COLOR }}",
+  "theme_color": "{{ PWA_APP_THEME_COLOR }}",
+  "orientation": "{{ PWA_APP_ORIENTATION }}",
+  "scope": "{{ PWA_APP_SCOPE }}",
+  "icons": [
+    {% for icon in PWA_APP_ICONS %}
+    {
+      "src": "{{ icon.src }}",
+      "sizes": "{{ icon.sizes }}",
+      "type": "image/png"
+    }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+  ],
+  "screenshots": [
+    {
+      "src": "/static/img/desktop.png",
+      "sizes": "1366x768",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/static/img/mobile.jpg",
+      "sizes": "946x2049",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/static/img/mobile.jpg",
+      "sizes": "946x2049",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ]
+}
