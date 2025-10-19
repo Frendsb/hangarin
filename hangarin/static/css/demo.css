@@ -309,4 +309,29 @@ body[data-background-color="dark"] .demo-icon .icon-class {
     width: 85% !important;
     right: -85%; } }
 
+.dashboard-card {
+    border-radius: 20px !important;
+    color: white;
+}
+
+.dashboard-card .card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dashboard-card .text-start {
+    text-align: left;
+}
+
+.dashboard-card .icon-right {
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .dashboard-card .icon-right {
+        font-size: 1.5rem;
+    }
+}
+
 /*# sourceMappingURL=demo.css.map */
