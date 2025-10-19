@@ -11,11 +11,11 @@ import os
 import sys
 
 # path where you can find the manage.py
-path = '/home/VonFroid/hangarin/hangarinsite'
+path = '/home/hangrinefren/hangarin/hangarin'
 if path not in sys.path:
     sys.path.insert(0, path)
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'hangarinsite.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'hangarin.settings'
 from django.core.wsgi import get_wsgi_application
 from django.contrib.staticfiles.handlers import StaticFilesHandler
 
