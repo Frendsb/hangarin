@@ -82,6 +82,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
+                'django_pwa.context_processors.pwa',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -174,21 +175,21 @@ PWA_APP_START_URL = '/'
 PWA_APP_STATUS_BAR_COLOR = 'default'
 PWA_APP_ICONS = [
     {
-        'src': '/static/img/icon-192.png',
+        'src': '/static/img/e.svg',
         'sizes': '192x192'
     },
     {
-        'src': '/static/img/icon-512.png',
+        'src': '/static/img/ejb.svg',
         'sizes': '512x512'
     }
 ]
 PWA_APP_ICONS_APPLE = [
     {
-        'src': '/static/img/icon-192.png',
+        'src': '/static/img/e.svg',
         'sizes': '192x192'
     },
     {
-        'src': '/static/img/icon-512.png',
+        'src': '/static/img/ejb.svg',
         'sizes': '512x512'
     }
 ]

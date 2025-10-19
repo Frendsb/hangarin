@@ -348,5 +348,9 @@ body[data-background-color="dark"] .demo-icon .icon-class {
   padding: 0.25rem 0.6rem;
   font-size: 0.8rem;
 }
+.btn-action {
+    min-width: 80px;  /* ensures consistent width */
+    text-align: center;
+}
 
 /*# sourceMappingURL=demo.css.map */
