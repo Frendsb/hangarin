@@ -16,9 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from todohan.views import HomePageView, TaskListView, TaskCreateView, TaskUpdateView, TaskDeleteView
-from todohan.views import NoteListView, NoteCreateView, NoteUpdateView, NoteDeleteView, SubTaskListView, SubTaskCreateView, SubTaskUpdateView, SubTaskDeleteView, PriorityListView, PriorityCreateView, PriorityUpdateView, PriorityDeleteView, CategoryListView, CategoryCreateView, CategoryUpdateView, CategoryDeleteView
-from todohan import views
+from tasks.views import HomePageView, TaskListView, TaskCreateView, TaskUpdateView, TaskDeleteView
+from tasks.views import NoteListView, NoteCreateView, NoteUpdateView, NoteDeleteView, SubTaskListView, SubTaskCreateView, SubTaskUpdateView, SubTaskDeleteView, PriorityListView, PriorityCreateView, PriorityUpdateView, PriorityDeleteView, CategoryListView, CategoryCreateView, CategoryUpdateView, CategoryDeleteView
+from tasks import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
