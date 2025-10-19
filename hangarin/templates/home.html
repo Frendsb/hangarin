@@ -7,7 +7,7 @@
 
     <!-- Stats Row -->
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-4">
             <div class="card card-stats card-primary shadow-sm">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <i class="fas fa-tasks fa-2x"></i>
@@ -19,7 +19,7 @@
             </div>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-md-4">
             <div class="card card-stats card-success shadow-sm">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <i class="fas fa-check-circle fa-2x"></i>
@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-md-4">
             <div class="card card-stats card-warning shadow-sm">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <i class="fas fa-hourglass-half fa-2x"></i>
@@ -47,7 +47,7 @@
         <div class="col-md-6">
             <div class="card shadow-sm">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Top Priorities</h5>
+                    <h5 class="card-title mb-0">Priorities</h5>
                 </div>
                 <div class="card-body">
                     {% if top_priorities %}
@@ -61,28 +61,6 @@
                         </ul>
                     {% else %}
                         <p class="text-muted">No priorities yet.</p>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="card shadow-sm">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Top Categories</h5>
-                </div>
-                <div class="card-body">
-                    {% if top_categories %}
-                        <ul class="list-group">
-                            {% for c in top_categories %}
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    {{ c.name }}
-                                    <span class="badge bg-success rounded-pill">{{ c.task_count }} tasks</span>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    {% else %}
-                        <p class="text-muted">No categories yet.</p>
                     {% endif %}
                 </div>
             </div>
