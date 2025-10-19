@@ -310,7 +310,8 @@ body[data-background-color="dark"] .demo-icon .icon-class {
     right: -85%; } }
 
 .dashboard-card {
-    border-radius: 20px !important;
+    border-radius: 100px !important; /* large semi-circle corners */
+    overflow: hidden !important;/* keeps inner content from leaking past the rounded edges */
     color: white;
 }
 
@@ -318,6 +319,7 @@ body[data-background-color="dark"] .demo-icon .icon-class {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 1.2rem 1.5rem;
 }
 
 .dashboard-card .text-start {
@@ -328,10 +330,10 @@ body[data-background-color="dark"] .demo-icon .icon-class {
     opacity: 0.9;
 }
 
-@media (max-width: 768px) {
-    .dashboard-card .icon-right {
-        font-size: 1.5rem;
-    }
+/* Optional: smoother shadow for depth */
+.dashboard-card.shadow-sm {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
+
 
 /*# sourceMappingURL=demo.css.map */
