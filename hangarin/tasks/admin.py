@@ -1,5 +1,8 @@
 from django.contrib import admin
-from .models import Task, Category, Priority, Note, SubTask
+
+# Register your models here.
+from .models import Priority, Category, Task, Note, SubTask
+
 
 class SubTaskInline(admin.TabularInline):
     model = SubTask
@@ -15,37 +18,36 @@ class NoteInline(admin.StackedInline):
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ("title", "status", "deadline", "priority", "category")
-    list_filter = ("status", "priority", "category")
-    search_fields = ("title", "description")
+    list_display = ('title', 'status', 'deadline', 'priority', 'category')
+    list_filter = ('status', 'priority', 'category')
+    search_fields = ('title', 'description')
+
     inlines = [SubTaskInline, NoteInline]
 
 @admin.register(SubTask)
 class SubTaskAdmin(admin.ModelAdmin):
-    list_display = ("title", "status", "parent_task_name")
-    list_filter = ("status",)
-    search_fields = ("title",)
-    
-    def get_queryset(self, request):
-        queryset = super().get_queryset(request)
-        return queryset.select_related('task')
+    list_display = ('title', 'status', 'parent_task_name')
+    list_filter = ('status',)
+    search_fields = ('title',)
 
     def parent_task_name(self, obj):
-        return obj.task.title
-    parent_task_name.short_description = "Parent Task"
+        try:
+            task = Task.objects.get(id=obj.parent_task_id)
+            return task.title
+        except Task.DoesNotExist:
+            return None
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("name",)
-    search_fields = ("name",)
+    list_display = ('name',)
+    search_fields = ('name',)
 
 @admin.register(Priority)
 class PriorityAdmin(admin.ModelAdmin):
-    list_display = ("name",)
-    search_fields = ("name",)
+    list_display = ('name',)
+    search_fields = ('name',)
 
 @admin.register(Note)
 class NoteAdmin(admin.ModelAdmin):
-    list_display = ("task", "content", "created_at")
-    list_filter = ("created_at",)
-    search_fields = ("content",)
+    list_display = ('task', 'content', 'created_at')
+    search_fields = ('content',)
