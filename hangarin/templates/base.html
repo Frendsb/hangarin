@@ -315,5 +315,66 @@
   });
 </script>
   <style>
+/* Clean visible hamburger icon */
+.btn-toggle i.hamburger {
+  position: relative;
+  display: inline-block;
+  width: 24px; /* slightly larger for visibility */
+  height: 2px;
+  background-color: white; /* make sure it's visible on dark background */
+  border-radius: 2px;
+  transition: all 0.3s ease-in-out;
+  vertical-align: middle;
+}
+
+/* Top line */
+.btn-toggle i.hamburger::before,
+.btn-toggle i.hamburger::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 24px;
+  height: 2px;
+  background-color: white;
+  border-radius: 2px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Space between lines */
+.btn-toggle i.hamburger::before {
+  top: -6px;
+}
+
+.btn-toggle i.hamburger::after {
+  top: 6px;
+}
+</style>
+<style>
+.btn-toggle i.hamburger {
+  width: 24px;
+  height: 2px;
+  background: white;
+  position: relative;
+  display: inline-block;
+}
+
+.btn-toggle i.hamburger::before,
+.btn-toggle i.hamburger::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 24px;
+  height: 2px;
+  background: white;
+}
+
+.btn-toggle i.hamburger::before {
+  top: -6px;
+}
+
+.btn-toggle i.hamburger::after {
+  top: 6px;
+}
+</style>
   </body>
 </html>
